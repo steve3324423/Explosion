@@ -11,9 +11,6 @@ public class Spawner : MonoBehaviour
     private List<CubeTouched> _cubes;
     private int _chanceOfSeparation = 100;
     private int _valueDivision = 2;
-    private int _minColorValue = 0;
-    private int _maxColorValue = 255;
-    private byte _opacityValue = 0;
 
     public event Action<List<CubeTouched>> CreatedCubes;
 
@@ -53,10 +50,7 @@ public class Spawner : MonoBehaviour
 
     private void SetNewCube(CubeTouched newCube,Transform transformCube)
     {
-        byte randomValueColor = (byte)UnityEngine.Random.Range(_minColorValue, _maxColorValue);
-        newCube.GetComponent<Renderer>().material.color = new Color32(randomValueColor, randomValueColor, randomValueColor, _opacityValue);
         SetScale(newCube,transformCube);
-
         ReportAboutCubes();
     }
 
@@ -74,7 +68,7 @@ public class Spawner : MonoBehaviour
 
         for (int i = 0; i < randomCount; i++)
         {
-            CubeTouched cube = _cubeFactory.Created(_cubePrefab,transformCube);
+            CubeTouched cube = _cubeFactory.Create(_cubePrefab,transformCube);
             _cubes.Add(cube);
 
             SetNewCube(cube, transformCube);
